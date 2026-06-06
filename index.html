@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Cozy Surprise For You 💖</title>
+    <!-- Beautiful Warm Typography from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Pacifico&family=Quicksand:wght@400..700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #f43f5e;
+            --primary-light: #ffe4e6;
+            --primary-dark: #be123c;
+            --secondary: #fbbf24;
+            --background-gradient: radial-gradient(circle, #fff5f5 0%, #fef3c7 50%, #f3e8ff 100%);
+            --font-sans: 'Quicksand', sans-serif;
+            --font-display: 'Fredoka', sans-serif;
+            --font-cursive: 'Pacifico', cursive;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--background-gradient);
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            padding: 20px;
+            color: #4c0519;
+            perspective: 1000px;
+        }
+
+        /* Ambient floating hearts and stars */
+        .bubble {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.6;
+            animation: floatUp 8s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(110vh) translateX(0) scale(0.8) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-10vh) translateX(50px) scale(1.1) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Cozy Story Containers */
+        .card-container {
+            max-width: 580px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(8px);
+            border: 4px solid var(--primary-light);
+            border-radius: 36px;
+            box-shadow: 0 20px 45px rgba(244, 63, 94, 0.08);
+            padding: 35px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            display: none;
+            animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(24px) scale(0.96); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .active {
+            display: block;
+        }
+
+        /* Typography & Layout elements */
+        h1 {
+            font-family: var(--font-display);
+            color: var(--primary-dark);
+            font-size: 2.3rem;
+            margin-bottom: 8px;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+        }
+
+        h2 {
+            font-family: var(--font-cursive);
+            color: var(--primary);
+            font-weight: normal;
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+        }
+
+        p {
+            font-size: 1.02rem;
+            line-height: 1.65;
+            color: #881337;
+            margin-bottom: 18px;
+            font-weight: 500;
+        }
+
+        p.quote {
+            font-size: 1.05rem;
+            font-weight: 500;
+            background: #fff5f5;
+            padding: 16px 22px;
+            border-radius: 20px;
+            border-left: 5px solid var(--primary);
+            margin: 20px 0;
+            font-style: italic;
+        }
+
+        /* Micro Envelope */
+        .envelope-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 360px;
+            height: 240px;
+            margin: 35px auto;
+            background: #fff0f3;
+            border: 4px solid #ffccd5;
+            border-radius: 24px;
+            cursor: pointer;
+            box-shadow: 0 12px 28px rgba(244, 63, 94, 0.06);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px;
+            overflow: hidden;
+        }
+
+        .envelope-wrapper:hover {
+            transform: scale(1.04) translateY(-4px);
+            box-shadow: 0 18px 36px rgba(244, 63, 94, 0.14);
+        }
+
+        .wax-seal {
+            width: 76px;
+            height: 76px;
+            background: #f59e0b;
+            border: 4px solid #fbbf24;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #92400e;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            animation: gentleHeartbeat 2.2s infinite ease-in-out;
+            font-size: 0.58rem;
+            font-weight: 800;
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        @keyframes gentleHeartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        /* Buttons & Interactions */
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 13px 26px;
+            border-radius: 18px;
+            font-family: var(--font-display);
+            font-weight: bold;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background 0.25s, transform 0.1s, box-shadow 0.2s;
+            box-shadow: 0 6px 14px rgba(244, 63, 94, 0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+            box-shadow: 0 8px 18px rgba(244, 63, 94, 0.3);
+        }
+
+        .btn:active {
+            transform: scale(0.96);
+        }
+
+        .btn-alt {
+            background-color: #fca5a5;
+            color: #4c0519;
+            box-shadow: none;
+        }
+
+        .btn-alt:hover {
+            background-color: #f87171;
+        }
+
+        /* Story layout */
+        .progress-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 20px auto;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #fbcfe8;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            width: 28px;
+            background: var(--primary);
+            border-radius: 5px;
+        }
+
+        /* Starlight Reason Jar */
+        .jar-container {
+            width: 190px;
+            height: 250px;
+            background: rgba(255, 255, 255, 0.35);
+            border: 4px solid #f1f5f9;
+            border-bottom-left-radius: 65px;
+            border-bottom-right-radius: 65px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            margin: 30px auto;
+            position: relative;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
+            backdrop-filter: blur(2px);
+            overflow: hidden;
+        }
+
+        .jar-lid {
+            width: 85px;
+            height: 18px;
+            background: #d97706;
+            margin: 0 auto;
+            border-bottom: 2px solid #b45309;
+            border-radius: 6px;
+            position: relative;
+            top: -2px;
+            z-index: 5;
+        }
+
+        .glass-highlight {
+            position: absolute;
+            left: 12px;
+            top: 20px;
+            bottom: 20px;
+            width: 7px;
+            background: rgba(255, 255, 255, 0.45);
+            border-radius: 3px;
+            pointer-events: none;
+        }
+
+        .jar-star {
+            position: absolute;
+            font-size: 1.6rem;
+            cursor: pointer;
+            transition: transform 0.2s, filter 0.2s;
+            animation: stellarWiggle 3.5s infinite ease-in-out;
+            padding: 8px;
+        }
+
+        .jar-star:hover {
+            transform: scale(1.4) rotate(12deg);
+        }
+
+        @keyframes stellarWiggle {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-7px) rotate(15deg); }
+        }
+
+        /* Ribbon on jar */
+        .ribbon {
+            background: var(--primary);
+            color: white;
+            font-family: var(--font-cursive);
+            font-size: 0.95rem;
+            padding: 4px 15px;
+            transform: rotate(-3deg);
+            position: absolute;
+            bottom: 50px;
+            width: 135px;
+            left: 22px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        .ribbon::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            bottom: -4px;
+            border-right: 8px solid var(--primary-dark);
+            border-top: 4px solid transparent;
+            border-bottom: 4px solid transparent;
+        }
+
+        /* Popups / modals */
+        .reason-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(76, 5, 25, 0.25);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 100;
+        }
+
+        .reason-content {
+            background: white;
+            padding: 30px;
+            border-radius: 28px;
+            border: 4px solid var(--primary-light);
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 35px 70px rgba(244, 63, 94, 0.2);
+            animation: fancyPopUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes fancyPopUp {
+            from { transform: scale(0.85) translateY(24px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            border-top: 2px dashed var(--primary-light);
+            padding-top: 20px;
+        }
+
+        .memory-highlight {
+            background: white;
+            padding: 18px 22px;
+            border-radius: 24px;
+            border: 2px solid var(--primary-light);
+            margin: 15px 0;
+            text-align: left;
+            box-shadow: 0 4px 12px rgba(244, 63, 94, 0.02);
+        }
+
+        .audio-indicator {
+            font-size: 0.72rem;
+            color: var(--primary);
+            font-weight: 700;
+            opacity: 0.7;
+            margin-top: 15px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.78rem;
+            color: rgba(159, 18, 57, 0.6);
+            font-weight: 600;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating bubbles backdrop container -->
+    <div id="bubbles-container"></div>
+
+    <!-- STAGE 1: THE ENVELOPE DELIVERY -->
+    <div id="panel-1" class="card-container active">
+        <h1>For Someone So Special 🌸</h1>
+        <p>A little key to warm feelings, shared memories, and sweet smiles.</p>
+        
+        <div class="envelope-wrapper" onclick="openEnvelope()">
+            <div style="width: 100%; text-align: left; font-size: 0.75rem; font-weight: bold; font-family: monospace; letter-spacing: 1px; opacity: 0.7; color: var(--primary-dark)">FROM: YOUR ADVENTURER</div>
+            <div class="wax-seal">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="#92400e" stroke="none"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                <span style="margin-top: 2px;">POKE</span>
+            </div>
+            <div style="width: 100%; text-align: right; font-family: var(--font-display); font-weight: bold; font-size: 1rem; color: var(--primary);">TO: MY BEST FRIEND</div>
+        </div>
+        <p style="font-size: 0.85rem; opacity: 0.75; font-style: italic;">🖱️ Tap the golden wax heart to open the envelope</p>
+    </div>
+
+    <!-- STAGE 2: THE UNRAVELING STORYCHAPTERS -->
+    <div id="panel-2" class="card-container">
+        <div class="progress-dots">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        
+        <div id="story-block" style="min-height: 200px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <h2 id="story-title">Chapter 1</h2>
+            <div id="story-icon" style="font-size: 3rem; margin: 15px 0;">✨</div>
+            <p id="story-body" style="font-size: 1.05rem; padding: 0 10px;"></p>
+        </div>
+
+        <div class="nav-buttons">
+            <button class="btn btn-alt" onclick="prevStory()">Back</button>
+            <button class="btn" onclick="nextStory()">Unveil More</button>
+        </div>
+        <div class="audio-indicator">🔊 Musical Chimes Active</div>
+    </div>
+
+    <!-- STAGE 3: THE MEMORY LANE HIGHLIGHTS -->
+    <div id="panel-3" class="card-container">
+        <h1>Polaroid Highlights 📷</h1>
+        <p>A look through our record book, remembering some of our absolute favorite times together:</p>
+        
+        <div style="max-height: 290px; overflow-y: auto; padding-right: 6px;">
+            <div class="memory-highlight">
+                <h3 style="font-family: var(--font-display); color: var(--primary); font-size: 1.1rem; margin-bottom: 5px;">
+                    1. The Coffee Shop Giggles Storm
+                </h3>
+                <p style="font-size: 0.9rem; line-height: 1.5; margin-bottom: 0; color: #4c0519;">
+                    "We burst into silent, stomach-aching giggles over absolutely nothing. The people next to us were confused, but we were completely safe in our own world."
+                </p>
+            </div>
+            <div class="memory-highlight">
+                <h3 style="font-family: var(--font-display); color: var(--primary); font-size: 1.1rem; margin-bottom: 5px;">
+                    2. Unspoken Safe Harbor Talks
+                </h3>
+                <p style="font-size: 0.9rem; line-height: 1.5; margin-bottom: 0; color: #4c0519;">
+                    "Those beautiful hours spent laughing about stars, fears, and goofy childhood dreams until our voices turned soft and heavy."
+                </p>
+            </div>
+            <div class="memory-highlight">
+                <h3 style="font-family: var(--font-display); color: var(--primary); font-size: 1.1rem; margin-bottom: 5px;">
+                    3. The Sudden Rainy Day Rescue
+                </h3>
+                <p style="font-size: 0.9rem; line-height: 1.5; margin-bottom: 0; color: #4c0519;">
+                    "Getting completely drenched in that sudden, wild downpour, running around for warm shelter and ending up sharing fries."
+                </p>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <button class="btn btn-alt" onclick="goToPanel(2)">Back</button>
+            <button class="btn" onclick="goToPanel(4)">Next Secret 🌟</button>
+        </div>
+    </div>
+
+    <!-- STAGE 4: STARRY JAR OF TRUTHS -->
+    <div id="panel-4" class="card-container">
+        <h1>Jar of Golden Sparks 🍯</h1>
+        <p>This little glass jar is holding hidden reminders. Poke any star inside to hear why you are so special to me!</p>
+
+        <div class="jar-container">
+            <div class="jar-lid"></div>
+            <div class="glass-highlight"></div>
+            <div class="ribbon">Star Jar</div>
+            
+            <!-- Stardust layout inside jar coordinates -->
+            <div class="jar-star" onclick="showReason(0)" style="left: 20%; top: 22%; color: #f59e0b;">⭐</div>
+            <div class="jar-star" onclick="showReason(1)" style="left: 55%; top: 28%; color: #fbbf24;">⭐</div>
+            <div class="jar-star" onclick="showReason(2)" style="left: 32%; top: 48%; color: #f87171;">⭐</div>
+            <div class="jar-star" onclick="showReason(3)" style="left: 65%; top: 54%; color: #f43f5e;">⭐</div>
+            <div class="jar-star" onclick="showReason(4)" style="left: 15%; top: 68%; color: #60a5fa;">⭐</div>
+            <div class="jar-star" onclick="showReason(5)" style="left: 45%; top: 74%; color: #c084fc;">⭐</div>
+            <div class="jar-star" onclick="showReason(6)" style="left: 35%; top: 32%; color: #34d399;">⭐</div>
+            <div class="jar-star" onclick="showReason(7)" style="left: 18%; top: 48%; color: #f472b6;">⭐</div>
+            <div class="jar-star" onclick="showReason(8)" style="left: 58%; top: 72%; color: #fb923c;">⭐</div>
+        </div>
+
+        <button class="btn btn-alt" onclick="showReason(Math.floor(Math.random() * reasons.length))">
+            🎲 Shake Out a Random Reminder!
+        </button>
+
+        <div class="nav-buttons">
+            <button class="btn btn-alt" onclick="goToPanel(3)">Back</button>
+            <button class="btn" onclick="goToPanel(5)">My Promise 🌸</button>
+        </div>
+    </div>
+
+    <!-- STAGE 5: OFFICIAL DIPLOMA AWARD -->
+    <div id="panel-5" class="card-container">
+        <h2 style="font-family: var(--font-display); font-size: 2.1rem; margin-bottom: 5px; color: var(--primary-dark)">Honorable Award!</h2>
+        <div style="font-size: 3.8rem; margin: 10px 0; animation: spinTrophy 4s infinite ease-in-out;">🏆</div>
+        
+        <div style="border: 5px double var(--primary); padding: 25px; border-radius: 20px; background: white; margin: 15px 0; position: relative;">
+            <p style="font-family: var(--font-cursive); font-size: 1.4rem; color: var(--primary-dark); margin-bottom: 5px;">Best Friend Diploma</p>
+            <p style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: #9f1239; margin-bottom: 12px;">PROUDLY CONFERRED UPON</p>
+            <h3 style="font-family: var(--font-display); font-size: 2.1rem; color: #4c0519; margin-bottom: 12px; border-bottom: 2.5px solid var(--primary-light); padding-bottom: 10px; display: inline-block; width: 100%;">
+                MY FAVORITE PERSON
+            </h3>
+            <p style="font-size: 0.9rem; line-height: 1.6; color: #881337; font-weight: 500; font-style: italic; margin-bottom: 0;">
+                "For bringing unadulterated sunshine to cloudy days, celebrating minor ordinary wins, listening to late-night theories, and remaining the kindest co-pilot on earth."
+            </p>
+        </div>
+
+        <p style="font-size: 0.92rem; font-weight: 700; color: var(--primary);">Made with endless warm hugs and shared laughter.</p>
+        
+        <div style="margin-top: 25px; border-top: 2px dashed var(--primary-light); padding-top: 20px;">
+            <button class="btn" onclick="restartJourney()">✨ Read All Over Again</button>
+        </div>
+    </div>
+
+    <!-- STARRY JAR DISCLOSURE POPUP -->
+    <div id="reason-modal" class="reason-modal" onclick="closeReason()">
+        <div class="reason-content" onclick="event.stopPropagation()">
+            <div style="font-size: 2.5rem; margin-bottom: 8px;">🌟</div>
+            <p id="reason-text" class="quote">Reason Text goes here</p>
+            <button class="btn btn-alt" style="margin-top: 15px; padding: 10px 20px;" onclick="closeReason()">Hold Close ♥</button>
+        </div>
+    </div>
+
+    <footer>
+        Made with lots of sweet tea and cozy thoughts 💖
+    </footer>
+
+    <script>
+        // WEB AUDIO CHIMES ENGINE (VIRTUAL INSTRUMENT)
+        let audioCtx = null;
+        function getAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            return audioCtx;
+        }
+
+        // Play delicious sweet bells
+        function playChime(harmonicMultiplier = 1) {
+            try {
+                const ctx = getAudioContext();
+                if (ctx.state === 'suspended') ctx.resume();
+                const now = ctx.currentTime;
+                
+                // Cute C-Major harmony spectrum
+                const baseChords = [523.25, 659.25, 783.99, 1046.50];
+                const tone = baseChords[Math.floor(Math.random() * baseChords.length)] * harmonicMultiplier;
+
+                const osc = ctx.createOscillator();
+                const gainNode = ctx.createGain();
+
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(tone, now);
+
+                gainNode.gain.setValueAtTime(0, now);
+                gainNode.gain.linearRampToValueAtTime(0.12, now + 0.04);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.55);
+
+                osc.connect(gainNode);
+                gainNode.connect(ctx.destination);
+
+                osc.start();
+                osc.stop(now + 0.6);
+            } catch(error) { console.warn("Audio block context:", error); }
+        }
+
+        function playOpeningSparkle() {
+            try {
+                const ctx = getAudioContext();
+                if (ctx.state === 'suspended') ctx.resume();
+                const now = ctx.currentTime;
+                const freqsArray = [523.25, 659.25, 783.99, 1046.50, 1318.51];
+                
+                freqsArray.forEach((freq, idx) => {
+                    const delay = idx * 0.08;
+                    const osc = ctx.createOscillator();
+                    const gainNode = ctx.createGain();
+
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, now + delay);
+
+                    gainNode.gain.setValueAtTime(0, now + delay);
+                    gainNode.gain.linearRampToValueAtTime(0.08, now + delay + 0.03);
+                    gainNode.gain.exponentialRampToValueAtTime(0.001, now + delay + 0.5);
+
+                    osc.connect(gainNode);
+                    gainNode.connect(ctx.destination);
+
+                    osc.start(now + delay);
+                    osc.stop(now + delay + 0.6);
+                });
+            } catch(e) {}
+        }
+
+        // BACKDROP FLOATING PARTICLES SYSTEM
+        function spawnHeartsAndStars() {
+            const container = document.getElementById('bubbles-container');
+            const visualSymbols = ['🌸', '✨', '💖', '⭐', '🎈'];
+            
+            for (let i = 0; i < 18; i++) {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                bubble.innerText = visualSymbols[Math.floor(Math.random() * visualSymbols.length)];
+                bubble.style.left = Math.random() * 95 + '%';
+                bubble.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                
+                const timeLength = Math.random() * 6 + 6;
+                const startDelay = Math.random() * 8;
+                
+                bubble.style.animationDuration = timeLength + 's';
+                bubble.style.animationDelay = startDelay + 's';
+                
+                container.appendChild(bubble);
+            }
+        }
+        
+        window.addEventListener('DOMContentLoaded', spawnHeartsAndStars);
+
+        // NAVIGATION PANEL ENGINE
+        function goToPanel(num) {
+            playChime(1.0);
+            
+            // Hide all active view panels
+            for (let i = 1; i <= 5; i++) {
+                const card = document.getElementById('panel-' + i);
+                if (card) {
+                    card.classList.remove('active');
+                }
+            }
+            
+            // Activate selection
+            const target = document.getElementById('panel-' + num);
+            if (target) {
+                target.classList.add('active');
+            }
+        }
+
+        function openEnvelope() {
+            playOpeningSparkle();
+            setTimeout(() => {
+                goToPanel(2);
+            }, 600);
+        }
+
+        // TEXT STORYBOOK CHAPTERS CONTENT SYSTEM
+        const chapters = [
+            {
+                title: "Chapter 1: Once Upon a Time...",
+                graphic: "✨",
+                body: "In a world spinning super fast, where days can blur and paths can cross, we clicked. It wasn't a giant fanfare; it was simple, warm, and magical. That was the day our friendship began to blossom, turning ordinary days into bright updates."
+            },
+            {
+                title: "Chapter 2: The Magic of Small Days",
+                graphic: "☕",
+                body: "We soon discovered that friendship isn't about grand stages, but about the silly, beautiful micro-moments in-between. Sharing cups of cold coffee, taking walks to nowhere, sending ugly selfies, and laughing at secrets only we understand."
+            },
+            {
+                title: "Chapter 3: Drying the Rainy Days",
+                graphic: "🌧️",
+                body: "When life got heavy, we held umbrellas for each other. You held my hand in the dark, sat with me in quiet tears, and gentle-reminded me of my own strength when I had completely forgotten it. Thank you for always being my safe harbor."
+            },
+            {
+                title: "Chapter 4: My Promise to You",
+                graphic: "🌸",
+                body: "So here is my little vow, written in soft pastel lines: I promise to cheer you on in every chapter, to sit with you through quiet storms, and to always have a bucket of jokes ready. We are in this life adventure together forever!"
+            }
+        ];
+
+        let storyCardIndex = 0;
+        
+        function drawStoryCard() {
+            const scene = chapters[storyCardIndex];
+            document.getElementById('story-title').innerText = scene.title;
+            document.getElementById('story-icon').innerText = scene.graphic;
+            
+            // Custom high-performance typewriter simulation
+            const textDest = document.getElementById('story-body');
+            textDest.innerText = "";
+            let idx = 0;
+            const textBlock = scene.body;
+            
+            const typingTimer = setInterval(() => {
+                textDest.innerText += textBlock.charAt(idx);
+                idx++;
+                if (idx >= textBlock.length) {
+                    clearInterval(typingTimer);
+                }
+            }, 18); // speedy flow
+            
+            // Handle bullet indicator display state
+            const bullets = document.querySelectorAll('.progress-dots .dot');
+            bullets.forEach((bullet, bIdx) => {
+                if (bIdx === storyCardIndex) {
+                    bullet.classList.add('active');
+                } else {
+                    bullet.classList.remove('active');
+                }
+            });
+        }
+
+        function nextStory() {
+            if (storyCardIndex < chapters.length - 1) {
+                storyCardIndex++;
+                playChime(1.1);
+                drawStoryCard();
+            } else {
+                playOpeningSparkle();
+                goToPanel(3); // Transfer to polaroids page
+            }
+        }
+
+        function prevStory() {
+            if (storyCardIndex > 0) {
+                storyCardIndex--;
+                playChime(0.9);
+                drawStoryCard();
+            }
+        }
+
+        // STAR JAR REASON CONTENT DATA
+        const reasons = [
+            "You always know exactly when I need a hug, even from miles away.",
+            "You listen to my endless rants about the tiniest things and make them feel important.",
+            "We have a secret language of subtle glances, weird noises, and inside jokes.",
+            "You are the absolute first person I want to text when something chaotic happens.",
+            "You celebrate my smallest ordinary wins like I won a global gold medal.",
+            "You make the simplest things—like sitting in silence or walking—a beautiful adventure.",
+            "With you, I can be 100% my strange, goofy, unpolished, authentic self.",
+            "You see all my flaws and simply choose to wrap them in warm, kind patience.",
+            "You have a magical way of making the heavy world feel light and full of laughter."
+        ];
+
+        function showReason(idx) {
+            playChime(1.18);
+            const reasonQuote = reasons[idx % reasons.length];
+            document.getElementById('reason-text').innerText = '"' + reasonQuote + '"';
+            document.getElementById('reason-modal').style.display = 'flex';
+        }
+
+        function closeReason() {
+            playChime(0.8);
+            document.getElementById('reason-modal').style.display = 'none';
+        }
+
+        function restartJourney() {
+            storyCardIndex = 0;
+            drawStoryCard();
+            playOpeningSparkle();
+            goToPanel(1);
+        }
+        
+        // Boot first card frame
+        drawStoryCard();
+    </script>
+</body>
+</html>
