@@ -1,0 +1,6 @@
+{
+  "name": "Best Friend Story Website",
+  "description": "An interactive, custom-styled pastel storybook website dedicated to a best friend, featuring an unfolding digital letter, custom adventure timeline, interactive memory lane scrapbook with drag-and-drop stickers, and a friendship reasons generator.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
